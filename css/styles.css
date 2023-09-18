@@ -3,3 +3,7 @@ header {
   color: white;
   height: 3.5rem;
 }
+
+.code-journal-header {
+  padding-top: 10px;
+}
