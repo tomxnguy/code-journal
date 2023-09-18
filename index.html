@@ -28,30 +28,32 @@
             <h1 class="entry-form-header">New Entry</h1>
           </div>
 
-          <div class="photo">
-            <img
-              class="placeholder-image"
-              alt="placeholder"
-              src="/images/placeholder-image-square.jpg" />
+          <div class="row">
+            <div class="photo column-half">
+              <img
+                class="placeholder-image"
+                alt="placeholder"
+                src="/images/placeholder-image-square.jpg" />
+            </div>
+
+            <div class="input-container column-half">
+              <div><label for="title">Title</label></div>
+              <div><input required type="text" id="title" /></div>
+
+              <div><label for="url">Photo URL</label></div>
+              <div><input required type="url" id="URL" /></div>
+            </div>
           </div>
 
-          <div class="input-container">
-            <div><label for="title">Title</label></div>
-            <div><input required type="text" id="title" /></div>
-          </div>
+          <div class="row">
+            <div class="input-container column-full">
+              <div><label for="notes">Notes</label></div>
+              <div><textarea id="notes"></textarea></div>
+            </div>
 
-          <div class="input-container">
-            <div><label for="url">Photo URL</label></div>
-            <div><input required type="url" id="URL" /></div>
-          </div>
-
-          <div class="input-container">
-            <div><label for="notes">Notes</label></div>
-            <div><textarea id="notes"></textarea></div>
-          </div>
-
-          <div class="save-button-container">
-            <button class="save-button" type="submit">SAVE</button>
+            <div class="save-button-container column-full">
+              <button class="save-button" type="submit">SAVE</button>
+            </div>
           </div>
         </form>
       </div>

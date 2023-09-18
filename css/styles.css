@@ -2,20 +2,16 @@ body {
   background-color: rgb(234, 232, 232);
 }
 
-.container {
-  padding-left: 5rem;
-  padding-right: 5rem;
-}
-
-header > .container {
+/* header */
+header {
   background-color: rgb(98, 42, 114);
   color: white;
   height: 4rem;
 }
 
-/* Entry form header */
 .code-journal-header {
-  padding-top: 15px;
+  margin-top: 0;
+  padding-top: 0.8rem;
 }
 
 /* Entry form */
@@ -24,16 +20,13 @@ header > .container {
   max-width: 100%;
 }
 
-.input-container {
-  margin-top: 15px;
-}
-
 input {
   width: 100%;
   border-radius: 5px;
   border-color: rgb(148, 148, 148);
   height: 2rem;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 textarea {
