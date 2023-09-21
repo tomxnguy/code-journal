@@ -19,6 +19,7 @@
     <header>
       <div class="container">
         <h1 class="code-journal-header">Code Journal</h1>
+        <a class="entries-anchor" href="#entries">Entries</a>
       </div>
     </header>
     <main class="container">
@@ -57,7 +58,15 @@
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden"></div>
+
+      <div data-view="entries" class="hidden">
+        <div class="entries-heading-container">
+          <h1 class="entries-header">Entries</h1>
+          <button class="entry-form-anchor">NEW</button>
+        </div>
+        <ul></ul>
+        <p class="no-entries">No entries have been recorded.</p>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>

@@ -23,6 +23,82 @@ function handleSubmit(event) {
   data.entries.unshift(noteData);
   $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
   $formValue.reset();
+  $unOrderedList.prepend(renderEntry(noteData));
+  viewSwap('entries');
+  toggleNoEntries();
 }
 
 $formValue.addEventListener('submit', handleSubmit);
+
+function renderEntry(entry) {
+  const $listDom = document.createElement('li');
+  $listDom.setAttribute('class', 'row');
+
+  const $imgDiv = document.createElement('div');
+  $imgDiv.setAttribute('class', 'column-half');
+  $listDom.appendChild($imgDiv);
+
+  const $imgRender = document.createElement('img');
+  $imgRender.setAttribute('src', entry.url);
+  $imgRender.setAttribute('alt', entry.url);
+  $imgDiv.appendChild($imgRender);
+
+  const $textDivRender = document.createElement('div');
+  $textDivRender.setAttribute('class', 'column-half');
+  $listDom.appendChild($textDivRender);
+
+  const $titleRender = document.createElement('h3');
+  $titleRender.textContent = entry.title;
+  $textDivRender.appendChild($titleRender);
+
+  const $noteRender = document.createElement('p');
+  $noteRender.textContent = entry.notes;
+  $textDivRender.appendChild($noteRender);
+
+  return $listDom;
+}
+
+const $unOrderedList = document.querySelector('ul');
+document.addEventListener('DOMContentLoaded', function (event) {
+  for (let i = 0; i < data.entries.length; i++) {
+    const $newEntry = renderEntry(data.entries[i]);
+    $unOrderedList.append($newEntry);
+  }
+  viewSwap(data.view);
+  toggleNoEntries();
+});
+
+const $noEntries = document.querySelector('.no-entries');
+function toggleNoEntries() {
+  if (data.entries.length > 0) {
+    $noEntries.className = 'hidden';
+  } else {
+    $noEntries.className = 'no-entries';
+  }
+}
+
+const $views = document.querySelectorAll('[data-view]');
+function viewSwap(view) {
+  data.view = view;
+  for (let i = 0; i < $views.length; i++) {
+    if ($views[i].getAttribute('data-view') === view) {
+      $views[i].classList.remove('hidden');
+    } else {
+      $views[i].classList.add('hidden');
+    }
+  }
+}
+
+const $entriesAnchor = document.querySelector('.entries-anchor');
+$entriesAnchor.addEventListener('click', switchToEntries);
+
+function switchToEntries(event) {
+  viewSwap('entries');
+}
+
+const $entryFormAnchor = document.querySelector('.entry-form-anchor');
+$entryFormAnchor.addEventListener('click', switchToEntryForm);
+
+function switchToEntryForm(event) {
+  viewSwap('entry-form');
+}
