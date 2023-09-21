@@ -18,8 +18,8 @@ header {
 .entries-anchor {
   color: white;
   text-decoration: none;
-  margin-left: 1rem;
-  font-size: 14pt;
+  margin-left: 2rem;
+  font-size: 1.2rem;
 }
 
 .entries-heading-container {
@@ -42,7 +42,7 @@ h1 {
 /* Entry form */
 img {
   height: auto;
-  max-width: 100%;
+  width: 100%;
 }
 
 input {

@@ -40,6 +40,7 @@ function renderEntry(entry) {
 
   const $imgRender = document.createElement('img');
   $imgRender.setAttribute('src', entry.url);
+  $imgRender.setAttribute('alt', entry.url);
   $imgDiv.appendChild($imgRender);
 
   const $textDivRender = document.createElement('div');
@@ -62,9 +63,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     const $newEntry = renderEntry(data.entries[i]);
     $unOrderedList.append($newEntry);
-    viewSwap(data.view);
-    toggleNoEntries();
   }
+  viewSwap(data.view);
+  toggleNoEntries();
 });
 
 const $noEntries = document.querySelector('.no-entries');
