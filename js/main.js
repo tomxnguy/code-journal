@@ -52,6 +52,9 @@ function renderEntry(entry) {
   $titleRender.textContent = entry.title;
   $textDivRender.appendChild($titleRender);
 
+  const $pencilDiv = document.createElement('div');
+  $pencilDiv.setAttribute('class', 'column');
+
   const $pencilRender = document.createElement('i');
   $pencilRender.className = 'fa-solid fa-pencil';
   $titleRender.appendChild($pencilRender);
@@ -126,9 +129,9 @@ function handleEdit(event) {
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === $closestId) {
         data.editing = data.entries[i];
-        $editTitle.setAttribute('value', data.editing.title);
-        $editUrl.setAttribute('value', data.editing.url);
-        $editNotes.textContent = data.editing.notes;
+        $editTitle.value = data.editing.title;
+        $editUrl.value = data.editing.url;
+        $editNotes.value = data.editing.notes;
         $editPlaceholder.setAttribute('src', data.editing.url);
         $editEntry.textContent = 'Edit Entry';
       }
