@@ -80,3 +80,8 @@ textarea {
   text-align: center;
   list-style: none;
 }
+
+h3 {
+  display: flex;
+  justify-content: space-between;
+}

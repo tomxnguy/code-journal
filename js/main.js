@@ -33,6 +33,7 @@ $formValue.addEventListener('submit', handleSubmit);
 function renderEntry(entry) {
   const $listDom = document.createElement('li');
   $listDom.setAttribute('class', 'row');
+  $listDom.setAttribute('data-entry-id', data.nextEntryId);
 
   const $imgDiv = document.createElement('div');
   $imgDiv.setAttribute('class', 'column-half');
@@ -50,6 +51,10 @@ function renderEntry(entry) {
   const $titleRender = document.createElement('h3');
   $titleRender.textContent = entry.title;
   $textDivRender.appendChild($titleRender);
+
+  const $pencilRender = document.createElement('i');
+  $pencilRender.className = 'fa-solid fa-pencil';
+  $titleRender.appendChild($pencilRender);
 
   const $noteRender = document.createElement('p');
   $noteRender.textContent = entry.notes;
@@ -101,4 +106,32 @@ $entryFormAnchor.addEventListener('click', switchToEntryForm);
 
 function switchToEntryForm(event) {
   viewSwap('entry-form');
+}
+
+const $editTitle = document.querySelector('#title');
+const $editUrl = document.querySelector('#photo-url');
+const $editPlaceholder = document.querySelector('.placeholder-image');
+const $editNotes = document.querySelector('#notes');
+const $editEntry = document.querySelector('.code-journal-header');
+
+const $ulQuery = document.querySelector('ul');
+$ulQuery.addEventListener('click', handleEdit);
+
+function handleEdit(event) {
+  if (event.target.tagName === 'I') {
+    viewSwap('entry-form');
+    const $closestId = Number(
+      event.target.closest('li').getAttribute('data-entry-id')
+    );
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === $closestId) {
+        data.editing = data.entries[i];
+        $editTitle.setAttribute('value', data.editing.title);
+        $editUrl.setAttribute('value', data.editing.url);
+        $editNotes.textContent = data.editing.notes;
+        $editPlaceholder.setAttribute('src', data.editing.url);
+        $editEntry.textContent = 'Edit Entry';
+      }
+    }
+  }
 }
