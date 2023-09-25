@@ -53,11 +53,12 @@ function renderEntry(entry) {
   $textDivRender.appendChild($titleRender);
 
   const $pencilDiv = document.createElement('div');
-  $pencilDiv.setAttribute('class', 'column');
+  $pencilDiv.setAttribute('class', 'pencil-div');
+  $textDivRender.appendChild($pencilDiv);
 
   const $pencilRender = document.createElement('i');
   $pencilRender.className = 'fa-solid fa-pencil';
-  $titleRender.appendChild($pencilRender);
+  $pencilDiv.appendChild($pencilRender);
 
   const $noteRender = document.createElement('p');
   $noteRender.textContent = entry.notes;
