@@ -7,9 +7,9 @@ function newPhoto(event) {
 }
 
 const $formValue = document.querySelector('#entry-form');
+const $getLi = document.querySelector('li');
 
 function handleSubmit(event) {
-  event.preventDefault();
   const title = $formValue.elements.title.value;
   const url = $formValue.elements.url.value;
   const notes = $formValue.elements.notes.value;
@@ -19,13 +19,25 @@ function handleSubmit(event) {
     url,
     notes,
   };
-  data.nextEntryId++;
-  data.entries.unshift(noteData);
-  $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
-  $formValue.reset();
-  $unOrderedList.prepend(renderEntry(noteData));
-  viewSwap('entries');
-  toggleNoEntries();
+  if (data.editing === null) {
+    event.preventDefault();
+    data.nextEntryId++;
+    data.entries.unshift(noteData);
+    $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
+    $formValue.reset();
+    $unOrderedList.prepend(renderEntry(noteData));
+    viewSwap('entries');
+    toggleNoEntries();
+  } else {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.editing.entryId === data.entries[i].entryId) {
+        data.entries[i].title = $formValue.elements.title.value;
+        data.entries[i].url = $formValue.elements.url.value;
+        data.entries[i].notes = $formValue.elements.notes.value;
+        $getLi[i].replaceWith(renderEntry(data.entries[i]));
+      }
+    }
+  }
 }
 
 $formValue.addEventListener('submit', handleSubmit);
@@ -116,25 +128,25 @@ const $editTitle = document.querySelector('#title');
 const $editUrl = document.querySelector('#photo-url');
 const $editPlaceholder = document.querySelector('.placeholder-image');
 const $editNotes = document.querySelector('#notes');
-const $editEntry = document.querySelector('.code-journal-header');
+const $editEntry = document.querySelector('.entry-form-header');
 
 const $ulQuery = document.querySelector('ul');
 $ulQuery.addEventListener('click', handleEdit);
 
 function handleEdit(event) {
   if (event.target.tagName === 'I') {
-    viewSwap('entry-form');
-    const $closestId = Number(
-      event.target.closest('li').getAttribute('data-entry-id')
-    );
     for (let i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].entryId === $closestId) {
+      if (
+        data.entries[i].entryId ===
+        Number(event.target.closest('li').getAttribute('data-entry-id')) - 1
+      ) {
         data.editing = data.entries[i];
         $editTitle.value = data.editing.title;
         $editUrl.value = data.editing.url;
         $editNotes.value = data.editing.notes;
         $editPlaceholder.setAttribute('src', data.editing.url);
         $editEntry.textContent = 'Edit Entry';
+        viewSwap('entry-form');
       }
     }
   }

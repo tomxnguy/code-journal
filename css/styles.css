@@ -88,5 +88,5 @@ h3 {
 
 .pencil-div {
   display: flex;
-  justify-self: flex-end;
+  flex-direction: row-reverse;
 }
