@@ -8,8 +8,10 @@ function newPhoto(event) {
 
 const $formValue = document.querySelector('#entry-form');
 const $getLi = document.querySelector('li');
+$formValue.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
+  event.preventDefault();
   const title = $formValue.elements.title.value;
   const url = $formValue.elements.url.value;
   const notes = $formValue.elements.notes.value;
@@ -20,27 +22,24 @@ function handleSubmit(event) {
     notes,
   };
   if (data.editing === null) {
-    event.preventDefault();
-    data.nextEntryId++;
+    noteData.entryId = data.nextEntryId++;
     data.entries.unshift(noteData);
     $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
     $formValue.reset();
     $unOrderedList.prepend(renderEntry(noteData));
-    viewSwap('entries');
     toggleNoEntries();
   } else {
     for (let i = 0; i < data.entries.length; i++) {
       if (data.editing.entryId === data.entries[i].entryId) {
         data.entries[i].title = $formValue.elements.title.value;
         data.entries[i].url = $formValue.elements.url.value;
+        viewSwap('entries');
         data.entries[i].notes = $formValue.elements.notes.value;
         $getLi[i].replaceWith(renderEntry(data.entries[i]));
       }
     }
   }
 }
-
-$formValue.addEventListener('submit', handleSubmit);
 
 function renderEntry(entry) {
   const $listDom = document.createElement('li');
@@ -66,7 +65,7 @@ function renderEntry(entry) {
 
   const $pencilDiv = document.createElement('div');
   $pencilDiv.setAttribute('class', 'pencil-div');
-  $textDivRender.appendChild($pencilDiv);
+  $titleRender.appendChild($pencilDiv);
 
   const $pencilRender = document.createElement('i');
   $pencilRender.className = 'fa-solid fa-pencil';
