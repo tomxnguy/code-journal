@@ -36,6 +36,10 @@ function handleSubmit(event) {
         viewSwap('entries');
         data.entries[i].notes = $formValue.elements.notes.value;
         $getLi[i].replaceWith(renderEntry(data.entries[i]));
+        data.editing = null;
+        $formValue.reset();
+        $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
+        toggleNoEntries();
       }
     }
   }
