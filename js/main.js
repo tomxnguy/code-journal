@@ -178,12 +178,15 @@ $cancelButton.addEventListener('click', function () {
 
 $confirmButton.addEventListener('click', function () {
   for (let i = 0; i < data.entries.length; i++) {
-    if (data.entries[i]) data.entries.splice([i]);
-    $ulQuery.remove('li');
+    data.entries.splice([i]);
+    $ulQuery.remove();
   }
   toggleNoEntries();
   $popup.classList.add('hidden');
   $grayBackground.classList.add('hidden');
   $containerModal.classList.add('hidden');
+  data.editing = null;
+  $formValue.reset();
+  $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
   viewSwap('entries');
 });
