@@ -7,7 +7,7 @@ function newPhoto(event) {
 }
 
 const $formValue = document.querySelector('#entry-form');
-const $getLi = document.querySelector('li');
+
 $formValue.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
@@ -22,20 +22,22 @@ function handleSubmit(event) {
     notes,
   };
   if (data.editing === null) {
-    noteData.entryId = data.nextEntryId++;
+    data.nextEntryId++;
     data.entries.unshift(noteData);
     $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
     $formValue.reset();
     $unOrderedList.prepend(renderEntry(noteData));
+    viewSwap('entries');
     toggleNoEntries();
   } else {
+    const $getLi = document.querySelectorAll('li');
     for (let i = 0; i < data.entries.length; i++) {
       if (data.editing.entryId === data.entries[i].entryId) {
         data.entries[i].title = $formValue.elements.title.value;
         data.entries[i].url = $formValue.elements.url.value;
-        viewSwap('entries');
         data.entries[i].notes = $formValue.elements.notes.value;
         $getLi[i].replaceWith(renderEntry(data.entries[i]));
+        viewSwap('entries');
         data.editing = null;
         $formValue.reset();
         $photo.setAttribute('src', '/images/placeholder-image-square.jpg');
@@ -135,9 +137,16 @@ const $editEntry = document.querySelector('.entry-form-header');
 
 const $ulQuery = document.querySelector('ul');
 $ulQuery.addEventListener('click', handleEdit);
+const $deleteButton = document.querySelector('.delete-button');
+const $popup = document.querySelector('.popup');
+const $containerModal = document.querySelector('.container-modal');
+const $grayBackground = document.querySelector('.gray-background');
+const $cancelButton = document.querySelector('.cancel-button');
+const $confirmButton = document.querySelector('.confirm-button');
 
 function handleEdit(event) {
   if (event.target.tagName === 'I') {
+    $deleteButton.className = 'delete-button';
     for (let i = 0; i < data.entries.length; i++) {
       if (
         data.entries[i].entryId ===
@@ -154,3 +163,26 @@ function handleEdit(event) {
     }
   }
 }
+
+$deleteButton.addEventListener('click', function () {
+  $popup.classList.remove('hidden');
+  $grayBackground.classList.remove('hidden');
+  $containerModal.classList.remove('hidden');
+});
+
+$cancelButton.addEventListener('click', function () {
+  $popup.classList.add('hidden');
+  $grayBackground.classList.add('hidden');
+  $containerModal.classList.add('hidden');
+});
+$confirmButton.addEventListener('click', function () {
+  for (let i = 0; i < data.entries.length; i++) {
+    data.entries.splice([i]);
+    $ulQuery.removeChild('li');
+  }
+  toggleNoEntries();
+  $popup.classList.add('hidden');
+  $grayBackground.classList.add('hidden');
+  $containerModal.classList.add('hidden');
+  viewSwap('entries');
+});
