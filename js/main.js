@@ -175,10 +175,11 @@ $cancelButton.addEventListener('click', function () {
   $grayBackground.classList.add('hidden');
   $containerModal.classList.add('hidden');
 });
+
 $confirmButton.addEventListener('click', function () {
   for (let i = 0; i < data.entries.length; i++) {
-    data.entries.splice([i]);
-    $ulQuery.removeChild('li');
+    if (data.entries[i]) data.entries.splice([i]);
+    $ulQuery.remove('li');
   }
   toggleNoEntries();
   $popup.classList.add('hidden');
