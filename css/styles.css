@@ -1,3 +1,7 @@
+.hidden {
+  display: none !important;
+}
+
 body {
   background-color: rgb(234, 232, 232);
 }
@@ -65,6 +69,7 @@ textarea {
   margin-top: 5px;
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 .save-button {
@@ -89,4 +94,53 @@ h3 {
 .pencil-div {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.delete-button {
+  border: none;
+  background-color: none;
+  color: red;
+  text-decoration: underline;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 0.6rem;
+  border: none;
+}
+
+.gray-background {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.container-modal {
+  margin-top: 20rem;
+  padding: 2rem;
+  background-color: rgb(0, 0, 0, 0.8);
+  width: 20rem;
+}
+
+.cancel-button {
+  background-color: #f0f1f2;
+  color: black;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+}
+
+.confirm-button {
+  background-color: red;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: none;
 }
