@@ -134,15 +134,14 @@ const $editUrl = document.querySelector('#photo-url');
 const $editPlaceholder = document.querySelector('.placeholder-image');
 const $editNotes = document.querySelector('#notes');
 const $editEntry = document.querySelector('.entry-form-header');
-
-const $ulQuery = document.querySelector('ul');
-$ulQuery.addEventListener('click', handleEdit);
 const $deleteButton = document.querySelector('.delete-button');
 const $popup = document.querySelector('.popup');
 const $containerModal = document.querySelector('.container-modal');
 const $grayBackground = document.querySelector('.gray-background');
 const $cancelButton = document.querySelector('.cancel-button');
 const $confirmButton = document.querySelector('.confirm-button');
+const $ulQuery = document.querySelector('ul');
+$ulQuery.addEventListener('click', handleEdit);
 
 function handleEdit(event) {
   if (event.target.tagName === 'I') {
@@ -156,9 +155,9 @@ function handleEdit(event) {
         $editTitle.value = data.editing.title;
         $editUrl.value = data.editing.url;
         $editNotes.value = data.editing.notes;
+        viewSwap('entry-form');
         $editPlaceholder.setAttribute('src', data.editing.url);
         $editEntry.textContent = 'Edit Entry';
-        viewSwap('entry-form');
       }
     }
   }
@@ -177,9 +176,12 @@ $cancelButton.addEventListener('click', function () {
 });
 
 $confirmButton.addEventListener('click', function () {
+  const $liQuery = document.querySelectorAll('li');
   for (let i = 0; i < data.entries.length; i++) {
-    data.entries.splice([i]);
-    $ulQuery.remove();
+    if (data.editing.entryId === data.entries[i].entryId) {
+      data.entries.splice(i, 1);
+      $liQuery[i].remove();
+    }
   }
   toggleNoEntries();
   $popup.classList.add('hidden');
